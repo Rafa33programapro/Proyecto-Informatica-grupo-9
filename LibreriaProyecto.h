@@ -2,5 +2,6 @@
 #define LIBRERIAPROYECTO_H
 
 void mostrar_en_pantalla_funciones(void);
+int elegir_funcion(void);
 
 #endif

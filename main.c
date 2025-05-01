@@ -6,7 +6,13 @@
 
 int main() {
 	
-	 mostrar_en_pantalla_funciones();
+	 mostrar_en_pantalla_funciones(); //Imprimimos en pantalla las opciones para el usuario
+	 elegir_funcion(); //recogemos la funcion que quiera ejecutar el usuario por medio de la variable 'funcion_escogida'
+
+
+
+
+
 
 	return 0;
 }
