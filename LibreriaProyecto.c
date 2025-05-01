@@ -30,7 +30,7 @@ int elegir_funcion(void)
 		
 	}while (funcion_escogida < 1 || funcion_escogida > 6);
 	
-	printf("Has escogido la accion numero %i.\n", funcion_escogida);
+	printf("Has escogido la accion numero %i:", funcion_escogida);
 	
 	return(funcion_escogida);
 }
