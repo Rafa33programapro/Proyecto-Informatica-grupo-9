@@ -3,5 +3,6 @@
 
 void mostrar_en_pantalla_funciones(void);
 int elegir_funcion(void);
+void funcion_3_comparacion_cuencas(void);
 
 #endif

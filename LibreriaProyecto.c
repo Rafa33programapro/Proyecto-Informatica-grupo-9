@@ -17,20 +17,48 @@ int elegir_funcion(void)
 	//Esta funcion le pide al usuario un numero entre 1 y 6, que es el numero de 
 	//funcionalidades que tiene el programa.
 	int funcion_escogida;
+	int comprobacion_entero;
 	
 	do
 	{
-		printf("Ahora, escoja que funcion quiere realizar: \n");
-		scanf("%i", &funcion_escogida);
+		printf("\nAhora, escoja que funcion quiere realizar: \n");
+		comprobacion_entero = scanf("%i", &funcion_escogida);
 		
-		if (funcion_escogida < 1 || funcion_escogida > 6) 
-		{	
-            printf("Numero invalido, por favor ingrese un numero entre 1 y 6. \n");
-        }
+		if(	comprobacion_entero != 1)  //comprobamos que se trata de un entero
+		{
+			printf("Error, introduzca un numero entero valido.");
+			int c;
+        	while ((c = getchar()) != '\n' && c != EOF);  //limpiamos el buffer para evitar bucles infinitos
+		}
+		
+		if( comprobacion_entero == 1)
+		{
+			if( funcion_escogida < 1 || funcion_escogida > 6 )
+			{
+				printf("Error, introduzca un numero entero valido.");
+			}
+		}
 		
 	}while (funcion_escogida < 1 || funcion_escogida > 6);
 	
-	printf("Has escogido la accion numero %i:", funcion_escogida);
+	printf("\n Has escogido la accion numero %i:", funcion_escogida);
 	
 	return(funcion_escogida);
+}
+
+void funcion_3_comparacion_cuencas(void)
+{
+	FILE *p;
+	
+	p = fopen("dataset.csv","r");
+	
+	if( p==NULL)
+	{
+		printf("Error al abrir el archivo");
+		return 1;
+	}
+	
+	
+	
+	
 }
