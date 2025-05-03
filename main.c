@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "LibreriaProyecto.h"
 //Este es el codigo principal
 //Recordad usar mas o menos la guia de estilo
@@ -12,32 +13,32 @@ int main() {
 	switch (funcion_escogida)
 	 {
         case 1:
-            printf(" Calculo de media anual o mensual de una cuenca. \n");
+            printf("Calculo de media anual o mensual de una cuenca. \n");
             
             
             break;
         case 2:
-            printf(" Evolucion del volumen embalsado de una cuenca. \n");
+            printf("Evolucion del volumen embalsado de una cuenca. \n");
             
             
             break;
         case 3:
-            printf(" Comparacion de 2 o mas cuencas. \n");
-            
+            printf("Comparacion de 2 o mas cuencas. \n");
+            	funcion_3_comparacion_cuencas();
             
             break;
         case 4:
-        	printf(" Valores extremos de una cuenca. \n");
+        	printf("Valores extremos de una cuenca. \n");
         	
         	
         	break;
         case 5:
-        	printf(" Nivel de agua en una cuenca. \n");
+        	printf("Nivel de agua en una cuenca. \n");
         	
         	
         	break;	
         case 6:
-        	printf(" Exportacion de datos calculados. \n");
+        	printf("Exportacion de datos calculados. \n");
         	
         	
         	break;
