@@ -58,7 +58,7 @@ void funcion_3_comparacion_cuencas(void)
 		return 1;
 	}
 	
-	
+	while(fscanf(p,))
 	
 	
 }
