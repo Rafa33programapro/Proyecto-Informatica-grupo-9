@@ -75,7 +75,7 @@ void funcion_3_comparacion_cuencas(void)
     }
 
     char linea[LINEA_MAX];
-    fgets(linea, LINEA_MAX, f); 						// Saltar descripcion datos
+    fgets(linea, LINEA_MAX, f); 					// Saltar descripcion datos
 
     while (fgets(linea, LINEA_MAX, f)) 
 	{ 
@@ -84,22 +84,22 @@ void funcion_3_comparacion_cuencas(void)
         strcpy(e.cuenca, token); 					//se copia la primera columna -> las cuencas
 
         token = strtok(NULL, ",");
-        strcpy(e.embalse, token);
+        strcpy(e.embalse, token);					//Se copia la segunda columna -> los embalses
 
         token = strtok(NULL, ",");
-        e.mes = atoi(token); 						//atoi convierte de char a int
+        e.mes = atoi(token); 						//Se copia la tercera columna -> meses (atoi convierte de char a int)
 
         for (int i = 0; i < 10; i++) 
-		{                                        	//se copia en el vector los anos
+		{                                        	//Se copian en el vector de datos los datos por cada ano
             token = strtok(NULL, ",");
             e.datos[i] = token ? atoi(token) : 0;	//verificamos si hay un dato, lo cambiamos a int con atoi y sino le damos valor 0
         }
 
-        entradas[total_entradas++] = e;
+        entradas[total_entradas++] = e; 			//cada grupo de datos se guarda en una variable e que se reusa, luego esta pasa a ser una parte del vector entradas
     }
     fclose(f);
 
-    char seguir;
+    char seguir;									//respuesta a si comparar mas cuencas
     do {
         printf("\nCuencas disponibles:\n"); 		//se ensenan las cuencas unicas que se han encontrado
         char cuencas_unicas[ENTRADA_MAX][NOMBRES_MAX];	
@@ -109,7 +109,7 @@ void funcion_3_comparacion_cuencas(void)
             int existe = 0;
             for (int j = 0; j < n_cuencas; j++) 
 			{
-                if (strcmp(entradas[i].cuenca, cuencas_unicas[j]) == 0) 
+                if (strcmp(entradas[i].cuenca, cuencas_unicas[j]) == 0) //comparamos para no mostrar cada cuenca/embalse dos veces
 				{
                     existe = 1;
                     break;
