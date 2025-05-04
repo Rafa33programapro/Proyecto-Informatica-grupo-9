@@ -3,9 +3,9 @@
 #include <stdlib.h>
 #include "LibreriaProyecto.h"
 
-#define MAX_LINE 1024
-#define MAX_ENTRIES 6000
-#define MAX_NAME 100
+#define LINEA_MAX 1024
+#define ENTRADA_MAX 6000
+#define NOMBRES_MAX 100
 
 
 void mostrar_en_pantalla_funciones(void)
@@ -55,44 +55,44 @@ int elegir_funcion(void)
 
 typedef struct 
 {
-    char cuenca[MAX_NAME];
-    char embalse[MAX_NAME];
+    char cuenca[NOMBRES_MAX];
+    char embalse[NOMBRES_MAX];
     int mes;
-    int datos[10]; // de 2012 a 2021
+    int datos[10]; 									// de 2012 a 2021
 } Entrada;
 
 void funcion_3_comparacion_cuencas(void)
 {
-	Entrada entradas[MAX_ENTRIES];
+	Entrada entradas[ENTRADA_MAX];
     int total_entradas = 0;
 
     
-    FILE *f = fopen("dataset.csv", "r"); //abrimos le CSV y vemos si lo ha hecho correctamente
+    FILE *f = fopen("dataset.csv", "r"); 			//abrimos le CSV y vemos si lo ha hecho correctamente
     if (!f) 
 	{
         perror("No se pudo abrir el archivo");
         return;
     }
 
-    char linea[MAX_LINE];
-    fgets(linea, MAX_LINE, f); // Saltar descripcion datos
+    char linea[LINEA_MAX];
+    fgets(linea, LINEA_MAX, f); 						// Saltar descripcion datos
 
-    while (fgets(linea, MAX_LINE, f)) //
+    while (fgets(linea, LINEA_MAX, f)) 
 	{ 
-        Entrada e; //se define una variable de la estructura
-        char *token = strtok(linea, ","); //dividimos el texto por sus partes separadas por comas
-        strcpy(e.cuenca, token); //se copia la primera columna -> las cuencas
+        Entrada e; 									//se define una variable de la estructura
+        char *token = strtok(linea, ","); 			//dividimos el texto por sus partes separadas por comas
+        strcpy(e.cuenca, token); 					//se copia la primera columna -> las cuencas
 
         token = strtok(NULL, ",");
         strcpy(e.embalse, token);
 
         token = strtok(NULL, ",");
-        e.mes = atoi(token); //atoi convierte de char a int
+        e.mes = atoi(token); 						//atoi convierte de char a int
 
         for (int i = 0; i < 10; i++) 
-		{ //se copia en el vector los anos
+		{                                        	//se copia en el vector los anos
             token = strtok(NULL, ",");
-            e.datos[i] = token ? atoi(token) : 0;
+            e.datos[i] = token ? atoi(token) : 0;	//verificamos si hay un dato, lo cambiamos a int con atoi y sino le damos valor 0
         }
 
         entradas[total_entradas++] = e;
@@ -101,10 +101,10 @@ void funcion_3_comparacion_cuencas(void)
 
     char seguir;
     do {
-        printf("\nCuencas disponibles:\n"); //se ensenan las cuencas unicas que se han encontrado
-        char cuencas_unicas[MAX_ENTRIES][MAX_NAME];
+        printf("\nCuencas disponibles:\n"); 		//se ensenan las cuencas unicas que se han encontrado
+        char cuencas_unicas[ENTRADA_MAX][NOMBRES_MAX];	
         int n_cuencas = 0;
-        for (int i = 0; i < total_entradas; i++) 
+        for (int i = 0; i < total_entradas; i++) 	
 		{
             int existe = 0;
             for (int j = 0; j < n_cuencas; j++) 
@@ -131,11 +131,11 @@ void funcion_3_comparacion_cuencas(void)
             printf("Selección inválida.\n");
             return;
         }
-        char cuenca_sel[MAX_NAME];
+        char cuenca_sel[NOMBRES_MAX];
         strcpy(cuenca_sel, cuencas_unicas[opc_cuenca - 1]);
 
         
-        char embalses[MAX_ENTRIES][MAX_NAME]; //se ensenan los embalses
+        char embalses[ENTRADA_MAX][NOMBRES_MAX]; 		//se ensenan los embalses
         int n_embalses = 0;
         for (int i = 0; i < total_entradas; i++) 
 		{
@@ -167,7 +167,7 @@ void funcion_3_comparacion_cuencas(void)
             printf("Selección inválida.\n");
             return;
         }
-        char embalse_sel[MAX_NAME];
+        char embalse_sel[NOMBRES_MAX];
         strcpy(embalse_sel, embalses[opc_embalse - 1]);
 
         int mes;
@@ -178,8 +178,7 @@ void funcion_3_comparacion_cuencas(void)
             printf("Mes inválido.\n");
             return;
         }
-
-        // Mostrar datos
+        											// Mostrar datos
         int encontrado = 0;
         for (int i = 0; i < total_entradas; i++) 
 		{
