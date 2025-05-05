@@ -5,7 +5,8 @@
 //Este es el codigo principal
 //Recordad usar mas o menos la guia de estilo
 
-int main() {
+int main() 
+{
 
 	 mostrar_en_pantalla_funciones(); //Imprimimos en pantalla las opciones para el usuario
 	 int funcion_escogida = elegir_funcion(); //recogemos la funcion que quiera ejecutar el usuario por medio de la variable 'funcion_escogida'
@@ -19,12 +20,12 @@ int main() {
             break;
         case 2:
             printf("Evolucion del volumen embalsado de una cuenca. \n");
-                funcion_2_evolucion_volumen_embalsado();
+            funcion_2_evolucion_volumen_embalsado();
 
             break;
         case 3:
             printf("Comparacion de 2 o mas cuencas. \n");
-            	funcion_3_comparacion_cuencas();
+            funcion_3_comparacion_cuencas();
 
             break;
         case 4:
