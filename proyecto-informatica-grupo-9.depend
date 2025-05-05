@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1746391004 source:d:\codigo_en_c\proyecto-informatica-grupo-9\libreriaproyecto.c
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+	"LibreriaProyecto.h"
+
+1746125820 d:\codigo_en_c\proyecto-informatica-grupo-9\libreriaproyecto.h
+
+1746392837 source:d:\codigo_en_c\proyecto-informatica-grupo-9\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"LibreriaProyecto.h"
+
