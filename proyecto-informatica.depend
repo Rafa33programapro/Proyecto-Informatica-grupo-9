@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1746475614 source:/home/fosky/Documents/Informatica/proyecto-informatica/Proyecto-Informatica-grupo-9/LibreriaProyecto.c
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+	"LibreriaProyecto.h"
+
+1746475825 /home/fosky/Documents/Informatica/proyecto-informatica/Proyecto-Informatica-grupo-9/LibreriaProyecto.h
+
+1746475614 source:/home/fosky/Documents/Informatica/proyecto-informatica/Proyecto-Informatica-grupo-9/main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"LibreriaProyecto.h"
+

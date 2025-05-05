@@ -31,12 +31,12 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="Proyecto-Informatica-grupo-9/LibreriaProyecto.c">
+		<Unit filename="LibreriaProyecto.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="Proyecto-Informatica-grupo-9/LibreriaProyecto.h" />
-		<Unit filename="Proyecto-Informatica-grupo-9/dataset.csv" />
-		<Unit filename="Proyecto-Informatica-grupo-9/main.c">
+		<Unit filename="LibreriaProyecto.h" />
+		<Unit filename="dataset.csv" />
+		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Extensions />
