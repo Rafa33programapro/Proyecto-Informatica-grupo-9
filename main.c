@@ -8,8 +8,8 @@
 int main() 
 {
 
-	 mostrar_en_pantalla_funciones(); //Imprimimos en pantalla las opciones para el usuario
-	 int funcion_escogida = elegir_funcion(); //recogemos la funcion que quiera ejecutar el usuario por medio de la variable 'funcion_escogida'
+	 mostrar_en_pantalla_funciones();           //Imprimimos en pantalla las opciones para el usuario
+	 int funcion_escogida = elegir_funcion();   //recogemos la funcion que quiera ejecutar el usuario por medio de la variable 'funcion_escogida'
 
 	switch (funcion_escogida)
 	 {
