@@ -67,7 +67,8 @@ void funcion_1_media_volumen_cuenca(void)
    int total_entradas = 0;
 
     FILE *f = fopen("dataset.csv", "r");
-    if (!f) {
+    if (!f) 
+    {
         perror("No se pudo abrir el archivo");
         return 1;
     }
@@ -75,20 +76,22 @@ void funcion_1_media_volumen_cuenca(void)
     char linea[LINEA_MAX];
     fgets(linea, LINEA_MAX, f); // Saltar encabezado
 
-    while (fgets(linea, LINEA_MAX, f)) {
+    while (fgets(linea, LINEA_MAX, f))                      //leemos el CSV linea a linea
+    {
         Entrada e;
-        char *token = strtok(linea, ",");
+        char *token = strtok(linea, ",");               //guardamos la primera parte de la linea (cuenca)
         strcpy(e.cuenca, token);
 
         token = strtok(NULL, ",");
-        strcpy(e.embalse, token);
+        strcpy(e.embalse, token);                       //guardamos la segunda parte de la linea (embalse)    
 
         token = strtok(NULL, ",");
-        e.mes = atoi(token);
+        e.mes = atoi(token);                            //guardamos la tercera parte de la linea (mes) y lo convertimos a entero
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++) 
+        {
             token = strtok(NULL, ",");
-            e.datos[i] = token ? atoi(token) : 0;
+            e.datos[i] = token ? atoi(token) : 0;           //guardamos el resto de la linea (datos) y los convertimos a enteros, si no hay datos se asigna 0
         }
 
         entradas[total_entradas++] = e;
@@ -96,44 +99,53 @@ void funcion_1_media_volumen_cuenca(void)
     fclose(f);
 
     char seguir;
-    do {
+    do 
+    {
         // Mostrar cuencas únicas
         char cuencas_unicas[ENTRADA_MAX][NOMBRES_MAX];
         int n_cuencas = 0;
         printf("\nCuencas disponibles:\n");
-        for (int i = 0; i < total_entradas; i++) {
+        for (int i = 0; i < total_entradas; i++) 
+        {
             int existe = 0;
-            for (int j = 0; j < n_cuencas; j++) {
-                if (strcmp(entradas[i].cuenca, cuencas_unicas[j]) == 0) {
+            for (int j = 0; j < n_cuencas; j++) 
+            {
+                if (strcmp(entradas[i].cuenca, cuencas_unicas[j]) == 0)             //comparamos para no copiar cuenca/embalse dos veces
+                {
+                    existe = 1;
+                    break;
+                }
+                {
                     existe = 1;
                     break;
                 }
             }
-            if (!existe) {
-                strcpy(cuencas_unicas[n_cuencas], entradas[i].cuenca);
+            if (!existe) 
+            {
+                strcpy(cuencas_unicas[n_cuencas], entradas[i].cuenca);              //se copia la cuenca
                 printf("%d. %s\n", n_cuencas + 1, cuencas_unicas[n_cuencas]);
                 n_cuencas++;
             }
         }
 
         int opc_cuenca;
-        printf("Selecciona cuenca: ");
+        printf("Selecciona cuenca: ");           //se le pide al usuario que seleccione una cuenca
         scanf("%d", &opc_cuenca);
-        if (opc_cuenca < 1 || opc_cuenca > n_cuencas) {
+        if (opc_cuenca < 1 || opc_cuenca > n_cuencas) 
+        {
             printf("Selección inválida.\n");
             return 1;
         }
         char cuenca_sel[NOMBRES_MAX];
         strcpy(cuenca_sel, cuencas_unicas[opc_cuenca - 1]);
 
-        //Pedimos media anual o mensual
-        int opc_media;
+        int opc_media;               // Opción de media anual o mensual 
         printf("¿Quieres calcular la media anual (1) o mensual (2)?\n");
         scanf("%i", &opc_media);
         if (opc_media == 1)
         {
-            printf("Media anual de la cuenca %s:\n", cuenca_sel);
-            printf("Año\\Media\n");
+            printf("Media anual de la cuenca %s:\n", cuenca_sel);               //imprimimos encabezado 
+            printf("Año\\Media\n");         
             for(int a=0; a<10; a++) //Recorremos los años
             {
                 int suma = 0;
