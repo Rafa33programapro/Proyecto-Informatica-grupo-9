@@ -34,14 +34,14 @@ int elegir_funcion(void)
         printf("\nAhora, escoja que funcion quiere realizar: \n");
         comprobacion_entero = scanf("%i", &funcion_escogida);
 
-        if( comprobacion_entero != 1)  //comprobamos que se trata de un entero
+        if(comprobacion_entero != 1)  //comprobamos que se trata de un entero
         {
             printf("Error, introduzca un numero entero valido.");
             int c;
             while ((c = getchar()) != '\n' && c != EOF);  //limpiamos el buffer para evitar bucles infinitos
         }
 
-        if( comprobacion_entero == 1)
+        if(comprobacion_entero == 1)
         {
             if( funcion_escogida < 1 || funcion_escogida > 6 )
             {
@@ -674,11 +674,12 @@ void funcion_7_tamano_base_datos(void)
         return;
     }
 
-    fseek(f, 0, SEEK_END); // Mover el puntero al final del archivo
-    long tamano = ftell(p_lectura); // Obtener la posición actual del puntero
-    fclose(f);
+    fseek(f, 0, SEEK_END);              // Mover el puntero al final del archivo
+    long tamano = ftell(p_lectura);     // Obtener la posición actual del puntero
+    rewind(p_lectura);                  // Volver al inicio del archivo
+    fclose(p_lectura);                  // Cerrar el archivo
 
-    printf("El tamaño de la base de datos es: %ld bytes\n", tamano);
+    printf("El tamaño de la base de datos es: %ld bytes\n", tamano); //%ld tiene mas capacidad que %i recomendado por gpt
 }
 
 int funcion_8_salir_del_programa(void)
