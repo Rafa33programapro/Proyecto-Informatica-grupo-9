@@ -6,5 +6,6 @@ int elegir_funcion(void);
 void funcion_1_media_volumen_cuenca(void);
 void funcion_2_evolucion_volumen_embalsado(void);
 void funcion_3_comparacion_cuencas(void);
+void funcion_4_extremos_volumen_embalsado(void);
 
 #endif

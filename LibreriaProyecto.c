@@ -490,3 +490,171 @@ void funcion_3_comparacion_cuencas(void)
     } while (seguir == 's' || seguir == 'S');
 }
 
+
+void funcion_4_extremos_volumen_embalsado(void)
+{
+    Entrada entradas[ENTRADA_MAX];
+    int total_entradas = 0;
+
+    FILE* f = NULL;
+    if (fopen(&f, "dataset.csv", "r") != 0 || !f) {
+        perror("No se pudo abrir el archivo");
+        return;
+    }
+
+    char linea[LINEA_MAX];
+    fgets(linea, LINEA_MAX, f); // Saltar encabezado
+
+    while (fgets(linea, LINEA_MAX, f)) {
+        Entrada e;
+        char* context = NULL;
+        char* token = strtok(linea, ",", &context);
+        if (!token) continue;
+
+        strcpy(e.cuenca, NOMBRES_MAX, token);
+
+        token = strtok(NULL, ",", &context);
+        if (!token) continue;
+        strcpy(e.embalse, NOMBRES_MAX, token);
+
+        token = strtok(NULL, ",", &context);
+        if (!token) continue;
+        e.mes = atoi(token);
+
+        for (int i = 0; i < 10; i++) {
+            token = strtok(NULL, ",", &context);
+            e.datos[i] = token ? atoi(token) : 0;
+        }
+
+        entradas[total_entradas++] = e;
+    }
+    fclose(f);
+
+    char seguir;
+    do {
+        char cuencas_unicas[ENTRADA_MAX][NOMBRES_MAX];
+        int n_cuencas = 0;
+        printf("\nCuencas disponibles:\n");
+        for (int i = 0; i < total_entradas; i++) {
+            int existe = 0;
+            for (int j = 0; j < n_cuencas; j++) {
+                if (strcmp(entradas[i].cuenca, cuencas_unicas[j]) == 0) {
+                    existe = 1;
+                    break;
+                }
+            }
+            if (!existe) {
+                strcpy(cuencas_unicas[n_cuencas], NOMBRES_MAX, entradas[i].cuenca);
+                printf("%d. %s\n", n_cuencas + 1, cuencas_unicas[n_cuencas]);
+                n_cuencas++;
+            }
+        }
+
+        int opc_cuenca;
+        printf("Selecciona cuenca: ");
+        scanf("%d", &opc_cuenca);
+        if (opc_cuenca < 1 || opc_cuenca > n_cuencas) {
+            printf("Selección inválida.\n");
+            return;
+        }
+        char cuenca_sel[NOMBRES_MAX];
+        strcpy(cuenca_sel, NOMBRES_MAX, cuencas_unicas[opc_cuenca - 1]);
+
+        char embalses[ENTRADA_MAX][NOMBRES_MAX];
+        int n_embalses = 0;
+        printf("Embalses disponibles en %s:\n", cuenca_sel);
+        for (int i = 0; i < total_entradas; i++) {
+            if (strcmp(entradas[i].cuenca, cuenca_sel) == 0) {
+                int existe = 0;
+                for (int j = 0; j < n_embalses; j++) {
+                    if (strcmp(entradas[i].embalse, embalses[j]) == 0) {
+                        existe = 1;
+                        break;
+                    }
+                }
+                if (!existe) {
+                    strcpy(embalses[n_embalses], NOMBRES_MAX, entradas[i].embalse);
+                    printf("%d. %s\n", n_embalses + 1, embalses[n_embalses]);
+                    n_embalses++;
+                }
+            }
+        }
+
+        int opc_embalse;
+        printf("Selecciona embalse: ");
+        scanf("%d", &opc_embalse);
+        if (opc_embalse < 1 || opc_embalse > n_embalses) {
+            printf("Selección inválida.\n");
+            return;
+        }
+        char embalse_sel[NOMBRES_MAX];
+        strcpy(embalse_sel, NOMBRES_MAX, embalses[opc_embalse - 1]);
+
+        printf("\nTabla de datos para %s - %s:\n\n", cuenca_sel, embalse_sel);
+        printf("Mes\\Año ");
+        for (int a = 2012; a <= 2021; a++) {
+            printf("%6d", a);
+        }
+        printf("\n");
+
+        for (int m = 1; m <= 12; m++) {
+            printf("%7d", m);
+            for (int a = 0; a < 10; a++) {
+                int valor = -1;
+                for (int i = 0; i < total_entradas; i++) {
+                    if (strcmp(entradas[i].cuenca, cuenca_sel) == 0 &&
+                        strcmp(entradas[i].embalse, embalse_sel) == 0 &&
+                        entradas[i].mes == m) {
+                        valor = entradas[i].datos[a];
+                        break;
+                    }
+                }
+                if (valor != -1) {
+                    printf("%6d", valor);
+                }
+                else {
+                    printf("%6s", "NA");
+                }
+            }
+            printf("\n");
+        }
+
+        // Calcular extremos
+        int anio;
+        printf("\nIntroduce el año (entre 2012 y 2021) para calcular extremos: ");
+        scanf("%d", &anio);
+        if (anio < 2012 || anio > 2021) {
+            printf("Año fuera de rango.\n");
+            return;
+        }
+
+        int indice_anio = anio - 2012;
+        int max_vol = -1;
+        int min_vol = 9999999;
+        int mes_max = -1, mes_min = -1;
+
+        for (int i = 0; i < total_entradas; i++) {
+            if (strcmp(entradas[i].cuenca, cuenca_sel) == 0 &&
+                strcmp(entradas[i].embalse, embalse_sel) == 0) {
+                int valor = entradas[i].datos[indice_anio];
+                if (valor > max_vol) {
+                    max_vol = valor;
+                    mes_max = entradas[i].mes;
+                }
+                if (valor < min_vol) {
+                    min_vol = valor;
+                    mes_min = entradas[i].mes;
+                }
+            }
+        }
+
+        printf("\nEn el año %d para %s - %s:\n", anio, cuenca_sel, embalse_sel);
+        printf("Mes de volumen máximo: %d con %d hectómetros cúbicos.\n", mes_max, max_vol);
+        printf("Mes de volumen mínimo: %d con %d hectómetros cúbicos.\n", mes_min, min_vol);
+
+        printf("\n¿Ver otra cuenca/embalse? (s/n): ");
+        scanf(" %c", &seguir, 1);
+
+    } while (seguir == 's' || seguir == 'S');
+
+}
