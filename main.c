@@ -15,7 +15,7 @@ int main()
 	 {
         case 1:
             printf("Calculo de media anual o mensual de una cuenca. \n");
-
+            funcion_1_media_volumen_cuenca();
 
             break;
         case 2:
@@ -43,9 +43,19 @@ int main()
 
 
         	break;
+        case 7:
+            printf("Tamaño de la base de datos. \n");
+            funcion_7_tamano_base_datos();
 
+            break;
+        case 8:
+            printf("Salir del programa. \n");
+            funcion_8_salir_del_programa();
+
+            break;
         default:
             printf(" Opción no válida \n");
+            
             break;
     }
 

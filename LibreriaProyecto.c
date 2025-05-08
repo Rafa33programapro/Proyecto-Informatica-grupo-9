@@ -660,3 +660,25 @@ void funcion_4_extremos_volumen_embalsado(void)
     } while (seguir == 's' || seguir == 'S');
 
 }
+
+void funcion_7_tamano_base_datos(void)
+{
+    FILE* p_lectura = fopen("dataset.csv", "r");
+    if (p_lectura == NULL) 
+    {
+        perror("No se pudo abrir el archivo");
+        return;
+    }
+
+    fseek(f, 0, SEEK_END); // Mover el puntero al final del archivo
+    long tamano = ftell(f); // Obtener la posición actual del puntero
+    fclose(f);
+
+    printf("El tamaño de la base de datos es: %ld bytes\n", tamano);
+}
+
+int funcion_8_salir_del_programa(void)
+{
+    printf("Saliendo del programa...\n");
+    return 0;
+}
