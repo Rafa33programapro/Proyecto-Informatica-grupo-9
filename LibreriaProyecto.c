@@ -17,6 +17,8 @@ void mostrar_en_pantalla_funciones(void)
 	printf("\t4: Valores extremos de una cuenca. \n");
 	printf("\t5: Nivel de agua en una cuenca. \n");
 	printf("\t6: Exportacion de datos calculados. \n");
+    printf("\t7: Tamaño de la base de datos. \n");
+    printf("\t8: Salir. \n");
 }
 
 int elegir_funcion(void)
