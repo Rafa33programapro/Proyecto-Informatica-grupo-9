@@ -152,7 +152,7 @@ void funcion_1_media_volumen_cuenca(void)
         {
             // Calcular media anual
             printf("Media anual de la cuenca %s:\n", cuenca_sel);
-            printf("Año\\Media\n");
+            printf("Año \\ Media\n");
             for (int a = 0; a < 10; a++)
             {
                 int suma = 0;
@@ -168,11 +168,11 @@ void funcion_1_media_volumen_cuenca(void)
                 }
                 if (num > 0)
                 {
-                    printf("%i\\%.2f\n", 2012 + a, suma / num);
+                    printf("%i \\ %.2f\n", 2012 + a, suma / num);
                 }
                 else
                 {
-                    printf("%i\\Sin Datos\n", 2012 + a);
+                    printf("%i \\ Sin Datos\n", 2012 + a);
                 }
             }
         }
@@ -199,11 +199,11 @@ void funcion_1_media_volumen_cuenca(void)
                 }
                 if (num > 0)
                 {
-                    printf("%i\\ %.2f\n", m, suma / num);
+                    printf("%i \\ %.2f\n", m, suma / num);
                 }
                 else
                 {
-                    printf("%i\\ No hay datos\n", m);
+                    printf("%i \\ No hay datos\n", m);
                 }
             }
         }
@@ -498,7 +498,6 @@ void funcion_3_comparacion_cuencas(void)
     } while (seguir == 's' || seguir == 'S');
 }
 
-
 void funcion_4_extremos_volumen_embalsado(void)
 {
     Entrada entradas[ENTRADA_MAX];
@@ -663,6 +662,114 @@ void funcion_4_extremos_volumen_embalsado(void)
         scanf(" %c", &seguir);
 
     } while (seguir == 's' || seguir == 'S');
+}
+
+void funcion_5_nivel_agua_cuenca(void)
+{
+    Entrada entradas[ENTRADA_MAX];
+    int total_entradas = 0;
+
+    FILE *f = fopen("dataset.csv", "r");
+    if (!f) {
+        perror("No se pudo abrir el archivo");
+        return 1;
+    }
+
+    char linea[LINEA_MAX];
+    fgets(linea, LINEA_MAX, f); // Saltar descripcion de datos
+
+    while (fgets(linea, LINEA_MAX, f)) {
+        Entrada e;
+        char *token = strtok(linea, ",");   //se lee todo entre las comas
+        strcpy(e.cuenca, token);
+
+        token = strtok(NULL, ",");
+        strcpy(e.embalse, token);
+
+        token = strtok(NULL, ",");
+        e.mes = atoi(token);
+
+        for (int i = 0; i < 10; i++) {
+            token = strtok(NULL, ",");
+            e.datos[i] = token ? atoi(token) : 0; //se leen los datos, si existe se convierte a entero si no se asigna 0
+        }
+
+        entradas[total_entradas++] = e;
+    }
+    fclose(f);
+
+    char seguir;
+    do {
+        char cuencas_unicas[ENTRADA_MAX][NOMBRES_MAX]; // Mostrar cuencas únicas
+        int n_cuencas = 0;
+        printf("\nCuencas disponibles:\n");
+        for (int i = 0; i < total_entradas; i++) {
+            int existe = 0;
+            for (int j = 0; j < n_cuencas; j++) {
+                if (strcmp(entradas[i].cuenca, cuencas_unicas[j]) == 0) {
+                    existe = 1;
+                    break;
+                }
+            }
+            if (!existe) {
+                strcpy(cuencas_unicas[n_cuencas], entradas[i].cuenca);
+                printf("%d. %s\n", n_cuencas + 1, cuencas_unicas[n_cuencas]);
+                n_cuencas++;
+            }
+        }
+
+        int opc_cuenca;
+        printf("Selecciona cuenca: ");
+        scanf("%d", &opc_cuenca);
+        if (opc_cuenca < 1 || opc_cuenca > n_cuencas) {
+            printf("Selección inválida.\n");
+            return 1;
+        }
+        char cuenca_sel[NOMBRES_MAX];
+        strcpy(cuenca_sel, cuencas_unicas[opc_cuenca - 1]);
+
+        int anio;                          
+        printf("Selecciona el año (2012-2021\n)");
+        scanf("%i\n",&anio); //Pedimos al usuario un año y lo guardamos
+
+        if (anio < 2012 || anio > 2021)
+        {
+            printf("Año introducido invalido.");
+            return 1;
+        }//Verificamos que el año introducido se encuentra en el rango de los datos
+
+        int posicion_anio = anio - 2012; //Hacemos coincidir el año introducido con la posición en el vector (2012 = 0, 2013=1, etc)
+
+        printf("Niveles de agua para la cuenca %s en el año %i:\n", cuenca_sel, anio);
+        printf("Mes \\ Nivel\n"); //Encabezado de la tabla
+
+        for(int m=1; m <= 12; m++) //Recorremos los 12 meses
+        {
+            int suma = 0;
+            int num = 0;
+
+            for(int i = 0; i < total_entradas; i++)
+            {
+                if(strcmp(entradas[i].cuenca, cuenca_sel) == 0 && entradas[i].mes == m) //Recorremos la cuenca seleccionada y forzamos  a considerar sólo el mes considerado en el bucle
+                {
+                    suma+= entradas[i].datos[posicion_anio];
+                    num++; //Hacemos que se sumen los datos y el número de datos
+                }
+            }
+
+            if (num > 0)
+            {
+                printf("%i \\ %.2f\n", m, suma/num); //Mostramos, a modo de tabla, el mes y la media
+            }
+            else
+            {
+                printf("%i \\ No hay datos\n",m);
+            }
+        }
+
+        printf("¿Ver otra cuenca/año? (s/n): \n");
+        scanf(" %c", &seguir);
+    }while (seguir == 's' || seguir == 'S');
 }
 
 void funcion_7_tamano_base_datos(void)
