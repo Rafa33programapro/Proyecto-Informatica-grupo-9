@@ -16,9 +16,8 @@ void mostrar_en_pantalla_funciones(void)
     printf("\t3: Comparacion de 2 o mas cuencas. \n");
     printf("\t4: Valores extremos de una cuenca. \n");
     printf("\t5: Nivel de agua en una cuenca. \n");
-    printf("\t6: Exportacion de datos calculados. \n");
-    printf("\t7: Tamaño de la base de datos. \n");
-    printf("\t8: Salir. \n");
+    printf("\t6: Tamaño de la base de datos. \n");
+    printf("\t7: Salir. \n");
 }
 
 // Función que permite al usuario elegir una acción del menú
@@ -786,7 +785,44 @@ void funcion_7_tamano_base_datos(void)
     rewind(p_lectura);                  // Volver al inicio del archivo
     fclose(p_lectura);                  // Cerrar el archivo
 
-    printf("El tamaño de la base de datos es: %ld bytes\n", tamano); //%ld tiene mas capacidad que %i recomendado por gpt
+    printf("El tamaño de la base de datos es: %ld bytes\n", tamano); //%ld tiene mas capacidad que %i
+
+    // Preguntar al usuario cuántos datos de embalses quiere ver
+    int num_datos;
+    printf("¿Cuántos datos de embalses desea ver? ");
+    scanf("%d", &num_datos);
+
+    // Asignar memoria dinámica para almacenar los datos
+    char** datos_embalses = malloc(num_datos * sizeof(char*));
+    if (!datos_embalses)
+    {
+        perror("Error al asignar memoria");
+        return;
+    }
+
+    // Simular la carga de datos (puedes reemplazar esto con datos reales del archivo)
+    for (int i = 0; i < num_datos; i++)
+    {
+        datos_embalses[i] = malloc(NOMBRES_MAX * sizeof(char));
+        if (!datos_embalses[i])
+        {
+            perror("Error al asignar memoria para un embalse");
+            for (int j = 0; j < i; j++) free(datos_embalses[j]);
+            free(datos_embalses);
+            return;
+        }
+        snprintf(datos_embalses[i], NOMBRES_MAX, "Embalse %d", i + 1); // Ejemplo de datos
+    }
+
+    // Mostrar los datos al usuario
+    printf("Datos de embalses:\n");
+    for (int i = 0; i < num_datos; i++)
+    {
+        printf("%d. %s\n", i + 1, datos_embalses[i]);
+        free(datos_embalses[i]); // Liberar memoria de cada embalse
+    }
+
+    free(datos_embalses); // Liberar el arreglo dinámico
 }
 
 int funcion_8_salir_del_programa(void)

@@ -39,16 +39,11 @@ int main()
 
         	break;
         case 6:
-        	printf("Exportacion de datos calculados. \n");
-
-
-        	break;
-        case 7:
             printf("Tamaño de la base de datos. \n");
             funcion_7_tamano_base_datos();
 
             break;
-        case 8:
+        case 7:
             printf("Salir del programa. \n");
             funcion_8_salir_del_programa();
 
