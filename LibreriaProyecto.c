@@ -668,13 +668,13 @@ void funcion_4_extremos_volumen_embalsado(void)
 void funcion_7_tamano_base_datos(void)
 {
     FILE* p_lectura = fopen("dataset.csv", "r");
-    if (p_lectura == NULL) 
+    if (p_lectura == NULL)
     {
         perror("No se pudo abrir el archivo");
         return;
     }
 
-    fseek(f, 0, SEEK_END);              // Mover el puntero al final del archivo
+    fseek(p_lectura, 0, SEEK_END);              // Mover el puntero al final del archivo
     long tamano = ftell(p_lectura);     // Obtener la posición actual del puntero
     rewind(p_lectura);                  // Volver al inicio del archivo
     fclose(p_lectura);                  // Cerrar el archivo
