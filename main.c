@@ -35,7 +35,7 @@ int main()
         	break;
         case 5:
         	printf("Nivel de agua en una cuenca. \n");
-
+            funcion_5_nivel_agua_cuenca();
 
         	break;
         case 6:
