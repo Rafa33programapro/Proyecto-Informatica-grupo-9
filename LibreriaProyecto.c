@@ -17,7 +17,8 @@ void mostrar_en_pantalla_funciones(void)
     printf("\t4: Valores extremos de una cuenca. \n");
     printf("\t5: Nivel de agua en una cuenca. \n");
     printf("\t6: Tamaño de la base de datos. \n");
-    printf("\t7: Salir. \n");
+    printf("\t7: Probabilidad de desbordamiento. \n");
+    printf("\t8: Salir. \n");
 }
 
 // Función que permite al usuario elegir una acción del menú
@@ -42,13 +43,13 @@ int elegir_funcion(void)
 
         if(comprobacion_entero == 1)
         {
-            if( funcion_escogida < 1 || funcion_escogida > 6 )
+            if( funcion_escogida < 1 || funcion_escogida > 8 )
             {
                 printf("Error, introduzca un numero entero valido. \n");
             }
         }
 
-    }while (funcion_escogida < 1 || funcion_escogida > 6);
+    }while (funcion_escogida < 1 || funcion_escogida > 8);
 
     printf("\nHas escogido la accion numero %i: ", funcion_escogida);
 
@@ -727,7 +728,7 @@ void funcion_5_nivel_agua_cuenca(void)
         char cuenca_sel[NOMBRES_MAX];
         strcpy(cuenca_sel, cuencas_unicas[opc_cuenca - 1]);
 
-        int anio;                          
+        int anio;
         printf("Selecciona el año (2012-2021\n)");
         scanf("%i\n",&anio); //Pedimos al usuario un año y lo guardamos
 
@@ -771,7 +772,7 @@ void funcion_5_nivel_agua_cuenca(void)
     }while (seguir == 's' || seguir == 'S');
 }
 
-void funcion_7_tamano_base_datos(void)
+void funcion_6_tamano_base_datos(void)
 {
     FILE* p_lectura = fopen("dataset.csv", "r");
     if (p_lectura == NULL)
@@ -786,10 +787,19 @@ void funcion_7_tamano_base_datos(void)
     fclose(p_lectura);                  // Cerrar el archivo
 
     printf("El tamaño de la base de datos es: %ld bytes\n", tamano); //%ld tiene mas capacidad que %i
+}
 
+int funcion_8_salir_del_programa(void)
+{
+    printf("Saliendo del programa...\n");
+    return 0;
+}
+
+void funcion_7_probabilidad_de_desbordamiento(void)
+{
     // Preguntar al usuario cuántos datos de embalses quiere ver
     int num_datos;
-    printf("¿Cuántos datos de embalses desea ver? ");
+    printf("\n¿Cuántos datos quieres ver? (de 2012 a 2021):\n ");
     scanf("%d", &num_datos);
 
     // Asignar memoria dinámica para almacenar los datos
@@ -811,22 +821,16 @@ void funcion_7_tamano_base_datos(void)
             free(datos_embalses);
             return;
         }
-        snprintf(datos_embalses[i], NOMBRES_MAX, "Embalse %d", i + 1); // Ejemplo de datos
+        snprintf(datos_embalses[i], NOMBRES_MAX, "Embalse %.1f %", -0.3*i*i*i+3.5*i*i-10*i+25); // Ejemplo de datos, formula para cierta pseudoaleatoriedad
     }
 
     // Mostrar los datos al usuario
     printf("Datos de embalses:\n");
     for (int i = 0; i < num_datos; i++)
     {
-        printf("%d. %s\n", i + 1, datos_embalses[i]);
+        printf("%d: %s\n", 2012 + i, datos_embalses[i]);
         free(datos_embalses[i]); // Liberar memoria de cada embalse
     }
 
     free(datos_embalses); // Liberar el arreglo dinámico
-}
-
-int funcion_8_salir_del_programa(void)
-{
-    printf("Saliendo del programa...\n");
-    return 0;
 }

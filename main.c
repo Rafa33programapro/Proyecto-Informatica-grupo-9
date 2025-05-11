@@ -5,7 +5,7 @@
 //Este es el codigo principal
 //Recordad usar mas o menos la guia de estilo
 
-int main() 
+int main()
 {
 
 	 mostrar_en_pantalla_funciones();           //Imprimimos en pantalla las opciones para el usuario
@@ -40,17 +40,21 @@ int main()
         	break;
         case 6:
             printf("Tamaño de la base de datos. \n");
-            funcion_7_tamano_base_datos();
+            funcion_6_tamano_base_datos();
 
             break;
         case 7:
+            printf("Probabilidad de desbormiento global por año");
+            funcion_7_probabilidad_de_desbordamiento();
+
+            break;
+        case 8:
             printf("Salir del programa. \n");
             funcion_8_salir_del_programa();
 
             break;
         default:
             printf(" Opción no válida \n");
-            
             break;
     }
 
